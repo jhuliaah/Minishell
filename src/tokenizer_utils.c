@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 22:52:37 by jhualves          #+#    #+#             */
-/*   Updated: 2025/04/17 22:16:08 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/04/18 17:33:10 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,56 +21,88 @@ int	is_special_char(char c)
 # The expected behaviour for de values "$$" in bash is to get 
 # the pid of the current process; and when the value "$" is to create a variable
 */
-t_token	*variable_token_utils(char *input, int *i, int count, int rest)
-{
-	int		i;
-	t_token	*new_node;
-	t_token	*temp;
 
-	new_node = NULL;
-	temp = new_node;
-	i = count * 2 + rest;
+t_token	*variable_token_utils(int *i, int count, int rest)
+{
+	t_token	*head = NULL;
+	t_token	*tail = NULL;
+	t_token	*new_node;
+	int		j = count * 2 + rest;
+
+	// Cria os tokens para cada "$$"
 	while (count >= 1)
 	{
-		new_node = new_token(TOKEN_VARIABLE, "$$");
-		new_node = new_node->next;
+		new_node = new_token(TOKEN_VARIABLE, ft_strdup("$$"));
+		if (!new_node)
+			return (NULL);
+		if (!head)
+		{
+			head = new_node;
+			tail = new_node;
+		}
+		else
+		{
+			tail->next = new_node;
+			tail = new_node;
+		}
 		count--;
 	}
+
+	// Cria o token para "$" se tiver sobra (ímpar)
 	while (rest > 0)
 	{
-		new_node = new_token(TOKEN_VARIABLE, "$");
-		new_node = new_node->next;
+		new_node = new_token(TOKEN_VARIABLE, ft_strdup("$"));
+		if (!new_node)
+			return (NULL);
+		if (!head)
+		{
+			head = new_node;
+			tail = new_node;
+		}
+		else
+		{
+			tail->next = new_node;
+			tail = new_node;
+		}
 		rest--;
 	}
-	input = input + i;
-	return (input);
+	*i += j;
+	return (head);
 }
 
-char	*variable_token_utils_1(char *input, int *i)
+t_token	*variable_token_utils_1(char *input, int *i)
 {
-	size_t	i;
+	int		j = 0;
 	char	*word;
 	t_token	*new_node;
 
-	new_node = NULL;
-	word = NULL;
-	i = 0;
-	if (*input == '$')
-		input++;
-	while (input[i] != ' ')
-		i++;
-	word = ft_strndup(input, i);
+	if (input[0] == '$')
+		j++;
+
+	while (input[j] && input[j] != ' ' && !is_special_char(input[j]))
+		j++;
+
+	word = ft_strndup(&input[1], j - 1); // pula o $
 	new_node = new_token(TOKEN_VARIABLE, word);
-	input = input + i;
-	if (curr == NULL)
-		curr = &new_node;
-	else
-	{
-		(*curr)->next = new_node;
-		curr = &(*curr)->next;
-	}
-	return (input);
+
+	*i += j;
+	return new_node;
 }
+
+// void	link_node(t_token **head, t_token **curr, t_token **new_node)
+// {
+// 	if (!head)
+// 	{
+// 		head = new_node;
+// 		curr = new_node;
+// 	}
+// 	else
+// 	{
+// 		(*curr)->next = new_node;
+// 		curr = new_node;
+// 	}
+// }
+
 
 void	free_tokens(t_token *tok)
 {

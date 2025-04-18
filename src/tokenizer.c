@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 14:41:46 by jhualves          #+#    #+#             */
-/*   Updated: 2025/04/17 22:42:27 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/04/18 18:04:14 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,21 +139,32 @@ t_token	*special_token(char *input, int *i)
 	return (new_node);
 }
 
+
 t_token	*variable_token(char *input, int *i)
 {
-	int	count;
-	int	rest;
+	int		j;
+	int		rest;
+	int		count;
+	t_token	*result;
 
-	input += *i;
+	j = *i;
 	count = 0;
-	while (input[count] == '$')
+	while (input[j] == '$')
+	{
 		count++;
+		j++;
+	}
+
 	rest = count % 2;
+
 	if (count > 1)
 	{
 		count /= 2;
-		return (variable_token_utils(input, i, count, rest));
+		result = variable_token_utils(i, count, rest);
 	}
 	else
-		return (variable_token_utils_1(input, i));
+		result = variable_token_utils_1(&input[*i], i);
+
+	return (result);
 }
+

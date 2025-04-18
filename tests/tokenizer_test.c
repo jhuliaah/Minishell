@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 15:08:43 by jhualves          #+#    #+#             */
-/*   Updated: 2025/04/17 22:01:37 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/04/18 18:00:22 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,27 +31,11 @@ void	test_token_word(void)
 	printf("✅ test_token_word passed\n");
 }
 
-void	go_through_every_token_node(t_token	*tok_head)
-{
-	t_token	*node;
-
-	node = tok_head;
-	ft_printf("Vamos printar agora:\n");
-	fflush(stdout);
-	while (node->next != NULL)
-	{
-		printf("Token type: %d, value: %s\n", node->type, node->value);
-		fflush(stdout);
-		node = node->next;
-	}
-}
-
 void	test_token_pipe(void)
 {
 	t_token	*tok_head;
 
 	tok_head = tokenizer_input("ls | grep");
-	go_through_every_token_node(tok_head);
 	assert(tok_head->type == TOKEN_WORD);
 	assert(strcmp(tok_head->value, "ls") == 0);
 	assert(tok_head->next->type == TOKEN_PIPE);
@@ -76,17 +60,57 @@ void	test_token_variables(void)
 	printf("✅ test_token_variables passed\n");
 }
 
+// void test_single_quotes()
+// {
+// 	t_token *tokens = tokenizer_input("echo 'hello world'");
+
+// 	assert(tokens != NULL);
+// 	assert(tokens->type == TOKEN_WORD);
+// 	assert(strcmp(tokens->value, "echo") == 0);
+
+// 	assert(tokens->next != NULL);
+// 	assert(tokens->next->type == TOKEN_WORD);
+// 	assert(strcmp(tokens->next->value, "hello world") == 0);
+
+// 	assert(tokens->next->next == NULL);
+// 	free_tokens(tokens);
+// 	printf("✅ test_single_quotes passed\n");
+// }
+
+// void test_double_quotes()
+// {
+// 	t_token *tokens = tokenizer_input("echo \"hello $USER\"");
+
+// 	assert(tokens != NULL);
+// 	assert(tokens->type == TOKEN_WORD);
+// 	assert(strcmp(tokens->value, "echo") == 0);
+
+// 	assert(tokens->next != NULL);
+// 	assert(tokens->next->type == TOKEN_WORD);
+// 	assert(strcmp(tokens->next->value, "hello $USER") == 0);
+
+// 	assert(tokens->next->next == NULL);
+// 	free_tokens(tokens);
+// 	printf("✅ test_double_quotes passed\n");
+// }
+
+// void test_unclosed_single_quote()
+// {
+// 	t_token *tokens = tokenizer_input("echo 'unclosed");
+// 	assert(tokens == NULL);
+// 	printf("✅ test_unclosed_single_quote passed (error handled)\n");
+// }
+
 void	run_all_tests(void)
 {
 	test_token_word();
 	test_token_pipe();
-	//test_token_variables();
+	test_token_variables();
 }
 
 int	main(void)
 {
 	run_all_tests();
-	
 	return (0);
 }
 
