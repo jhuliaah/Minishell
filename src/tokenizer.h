@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 14:41:53 by jhualves          #+#    #+#             */
-/*   Updated: 2025/04/16 21:31:44 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/04/17 17:49:44 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,14 @@ typedef struct s_token
 
 t_token	*new_token(t_token_type type, char *word);
 t_token	*tokenizer_input(char *input);
-char	*word_token(char *input, t_token **curr);
+t_token	*word_token(char *input, int *i);
+// t_token	*word_token(char *input, t_token *curr);
 int		is_special_char(char c);
-char	*special_token(char *input, t_token **curr);
-char	*variable_token(char *input, t_token **curr);
-char	*variable_token_utils(char *input, t_token **curr, int count, int rest);
-char	*variable_token_utils_1(char *input, t_token **curr);
+// t_token	*special_token(char *input, t_token *curr);
+t_token	*special_token(char *input, int *i);
+// char	*variable_token(char *input, t_token **curr);
+// char	*variable_token_utils(char *input, t_token **curr, int count, int rest);
+// char	*variable_token_utils_1(char *input, t_token **curr);
 void	free_tokens(t_token *tok);
 
 #endif

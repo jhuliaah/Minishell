@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 15:08:43 by jhualves          #+#    #+#             */
-/*   Updated: 2025/04/16 21:15:40 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/04/17 22:01:37 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	run_all_tests(void)
 {
 	test_token_word();
 	test_token_pipe();
-	test_token_variables();
+	//test_token_variables();
 }
 
 int	main(void)

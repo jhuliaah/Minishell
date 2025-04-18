@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 14:41:46 by jhualves          #+#    #+#             */
-/*   Updated: 2025/04/16 21:32:48 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/04/17 22:42:27 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 # TODO 
 # - FAZER AS ASPAS E DUPLAS ASPAS
-# - VERIFICAR SE A LISTA ESTA ATUALIZANDO CORRETAMENTE
+# - AJUSTAR AS VARIAVEIS
 # - FAZER OS TESTES
 */
 
@@ -40,109 +40,120 @@ t_token	*new_token(t_token_type type, char *word)
 t_token	*tokenizer_input(char *input)
 {
 	t_token	*head;
-	t_token	**curr;
-	t_token	*temp;
+	t_token	*curr;
+	t_token	*new_node;
+	int		i;
 
+	i = 0;
 	head = NULL;
-	curr = &head;
-	while (*input)
+	new_node = NULL;
+	curr = NULL;
+	while (input[i] != '\0')
 	{
-		if (is_special_char(*input))
+		if (input[i] == ' ')
+			i++;
+		else if (is_special_char(input[i]))
+			new_node = special_token(input, &i);
+		else
+			new_node = word_token(input, &i);
+		if (!new_node)
+			return (NULL);
+		if (!head)
 		{
-			input = special_token(input, curr);
-			if (!*curr) // Verifica se o token foi criado corretamente
-				return (NULL);
-			printf("Token type: %d, value: %s\n", (*curr)->type, (*curr)->value);
-			fflush(stdout);
+			head = new_node;
+			curr = new_node;
 		}
-		else if (*input == ' ')
-			input++;
 		else
 		{
-			input = word_token(input, curr);
-			if (!*curr) // Verifica se o token foi criado corretamente
-				return (NULL);
-			printf("Token type: %d, value: %s\n", (*curr)->type, (*curr)->value);
-			fflush(stdout);
-		}	
+			curr->next = new_node;
+			curr = new_node;
+		}
 	}
 // 	testes
-	temp = head;
+	t_token *temp = head;
 	while (temp)
 	{
 		printf("Token type: %d, value: %s\n", temp->type, temp->value);
-		fflush(stdout);
 		temp = temp->next;
 	}
-
 	return (head);
 }
 
-char	*word_token(char *input, t_token **curr)
+/*
+# The function word_token takes every part of the input that is a word.
+# This function takes the input and the pointer for int i, que é o indice que 
+# esta percorrendo o input na função principal e cria um novo token.
+# Por fim limpando a variavel word e retornando o novo token criado.
+*/
+t_token	*word_token(char *input, int *i)
 {
-	int		i;
+	int		j;
 	char	*word;
+	t_token	*new_node;
 
-	i = 0;
-	while (input[i] && input[i] != ' ' && !is_special_char(input[i]))
-		i++;
-	word = ft_strndup(input, i);
-	*curr = new_token(TOKEN_WORD, word);
-	if (!*curr)
+	word = input;
+	new_node = NULL;
+	j = *i;
+	input += j;
+	while (word[j] && word[j] != ' ' && !is_special_char(word[j]))
+		j++;
+	word = ft_strndup(input, j - *i);
+	new_node = new_token(TOKEN_WORD, word);
+	if (!(new_node))
 	{
 		free(word);
 		return (NULL);
 	}
-	curr = &(*curr)->next;
-	input += i;
-	return (input);
+	*i = j;
+	return (new_node);
 }
 
-char	*special_token(char *input, t_token **curr)
+t_token	*special_token(char *input, int *i)
 {
-	if (input[0] == '|' && input[1] != '|')
-		*curr = new_token(TOKEN_PIPE, ft_strdup("|"));
-	else if (input[0] == '>' && input[1] == '>')
-		*curr = new_token(TOKEN_REDIR_APPEND, ">>");
-	else if (input[0] == '<' && input[1] == '<')
-		*curr = new_token(TOKEN_HEREDOC, "<<");
-	else if (input[0] == '>' && input[1] != '>')
-		*curr = new_token(TOKEN_REDIR_OUT, ">");
-	else if (input[0] == '<' && input[1] != '<')
-		*curr = new_token(TOKEN_REDIR_IN, "<");
-	else if (input[0] == '$')
-		return (variable_token(input, curr));
-	if (!*curr)
+	t_token	*new_node;
+	int		j;
+
+	j = *i;
+	new_node = NULL;
+	if (input[j] == '|' && input[j + 1] != '|')
+		new_node = new_token(TOKEN_PIPE, ft_strdup("|"));
+	else if (input[j] == '>' && input[j + 1] == '>')
+		new_node = new_token(TOKEN_REDIR_APPEND, ">>");
+	else if (input[j] == '<' && input[j + 1] == '<')
+		new_node = new_token(TOKEN_HEREDOC, "<<");
+	else if (input[j] == '>' && input[j + 1] != '>')
+		new_node = new_token(TOKEN_REDIR_OUT, ">");
+	else if (input[j] == '<' && input[j + 1] != '<')
+		new_node = new_token(TOKEN_REDIR_IN, "<");
+	else if (input[j] == '$')
+		return (variable_token(input, i));
+	if (!new_node)
 		return (NULL);
-	if ((input[0] == '|' && input[1] != '|')
-		|| (input[0] == '>' && input[1] != '>')
-		|| (input[0] == '<' && input[1] != '<'))
-		input++;
+	if ((input[j] == '|' && input[j + 1] != '|')
+		|| (input[j] == '>' && input[j + 1] != '>')
+		|| (input[j] == '<' && input[j + 1] != '<'))
+		j++;
 	else
-		input += 2;
-	curr = &(*curr)->next;
-	return (input);
+		j += 2;
+	*i = j;
+	return (new_node);
 }
 
-char	*variable_token(char *input, t_token **curr)
+t_token	*variable_token(char *input, int *i)
 {
-	int	i;
 	int	count;
 	int	rest;
 
+	input += *i;
 	count = 0;
-	i = 0;
 	while (input[count] == '$')
 		count++;
 	rest = count % 2;
 	if (count > 1)
 	{
 		count /= 2;
-		input = variable_token_utils(input, curr, count, rest);
+		return (variable_token_utils(input, i, count, rest));
 	}
 	else
-		input = variable_token_utils_1(input, curr);
-	if(!*curr)
-		return (NULL);
-	return (input);
+		return (variable_token_utils_1(input, i));
 }
