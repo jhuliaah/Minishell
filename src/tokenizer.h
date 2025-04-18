@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 14:41:53 by jhualves          #+#    #+#             */
-/*   Updated: 2025/04/18 17:33:22 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/04/18 19:18:11 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,21 +51,11 @@ t_token	*tokenizer_input(char *input);
 t_token	*word_token(char *input, int *i);
 t_token	*special_token(char *input, int *i);
 t_token	*new_token(t_token_type type, char *word);
+t_token *quote_token(char *input, int *i);
+t_token *dquote_token(char *input, int *i);
 t_token	*variable_token(char *input, int *i);
 t_token	*variable_token_utils_1(char *input, int *i);
 // void	link_node(t_token **head, t_token **curr, t_token **new_node);
 t_token	*variable_token_utils(int *i, int count, int rest);
 
 #endif
-
-
-
-// Token Type	Valor na string de entrada	Descrição
-// TOKEN_PIPE	`	`
-// TOKEN_REDIR_IN	<	Redirecionamento de entrada
-// TOKEN_REDIR_OUT	>	Redirecionamento de saída
-// TOKEN_REDIR_APPEND	>>	Redirecionamento de saída (append)
-// TOKEN_HEREDOC	<<	Heredoc (leitura até delimitador)
-// TOKEN_QUOTE	'	Aspas simples (delimitador de string)
-// TOKEN_DQUOTE	"	Aspas duplas (delimitador de string)
-// TOKEN_VARIABLE	$VAR, $?, etc.	Variável de ambiente ou especial

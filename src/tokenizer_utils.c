@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 22:52:37 by jhualves          #+#    #+#             */
-/*   Updated: 2025/04/18 17:33:10 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/04/18 19:35:18 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	is_special_char(char c)
 # The expected behaviour for de values "$$" in bash is to get 
 # the pid of the current process; and when the value "$" is to create a variable
 */
-
 t_token	*variable_token_utils(int *i, int count, int rest)
 {
 	t_token	*head = NULL;
@@ -72,21 +71,22 @@ t_token	*variable_token_utils(int *i, int count, int rest)
 
 t_token	*variable_token_utils_1(char *input, int *i)
 {
-	int		j = 0;
+	int		j;
 	char	*word;
 	t_token	*new_node;
 
+	j = 0;
 	if (input[0] == '$')
 		j++;
 
 	while (input[j] && input[j] != ' ' && !is_special_char(input[j]))
 		j++;
 
-	word = ft_strndup(&input[1], j - 1); // pula o $
+	word = ft_strndup(&input[1], j - 1);
 	new_node = new_token(TOKEN_VARIABLE, word);
 
 	*i += j;
-	return new_node;
+	return (new_node);
 }
 
 // void	link_node(t_token **head, t_token **curr, t_token **new_node)
@@ -102,6 +102,44 @@ t_token	*variable_token_utils_1(char *input, int *i)
 // 		curr = new_node;
 // 	}
 // }
+
+t_token	*dquote_token(char *input, int *i)
+{
+	char	*word;
+	t_token	*new_node;
+	int		start;
+	int		j;
+
+	start = *i + 1;
+	j = start;
+	while (input[j] && input[j] != '\"')
+		j++;
+	if (!input[j])
+		return (NULL);
+	word = ft_strndup(&input[start], j - start);
+	new_node = new_token(TOKEN_WORD, word);
+	*i = j + 1;
+	return (new_node);
+}
+
+t_token	*quote_token(char *input, int *i)
+{
+	char	*word;
+	t_token	*new_node;
+	int		start;
+	int		j;
+
+	start = *i + 1;
+	j = start;
+	while (input[j] && input[j] != '\'')
+		j++;
+	if (!input[j])
+		return (NULL);
+	word = ft_strndup(&input[start], j - start);
+	new_node = new_token(TOKEN_WORD, word);
+	*i = j + 1;
+	return (new_node);
+}
 
 
 void	free_tokens(t_token *tok)

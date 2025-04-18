@@ -6,18 +6,11 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 14:41:46 by jhualves          #+#    #+#             */
-/*   Updated: 2025/04/18 18:04:14 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/04/18 19:37:49 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
-
-/*
-# TODO 
-# - FAZER AS ASPAS E DUPLAS ASPAS
-# - AJUSTAR AS VARIAVEIS
-# - FAZER OS TESTES
-*/
 
 /*
 # This function creates a linked-list with all types of tokens and it's value
@@ -52,6 +45,10 @@ t_token	*tokenizer_input(char *input)
 	{
 		if (input[i] == ' ')
 			i++;
+		else if (input[i] == '\'')
+			new_node = quote_token(input, &i);
+		else if (input[i] == '\"')
+			new_node = dquote_token(input, &i);
 		else if (is_special_char(input[i]))
 			new_node = special_token(input, &i);
 		else
@@ -68,13 +65,6 @@ t_token	*tokenizer_input(char *input)
 			curr->next = new_node;
 			curr = new_node;
 		}
-	}
-// 	testes
-	t_token *temp = head;
-	while (temp)
-	{
-		printf("Token type: %d, value: %s\n", temp->type, temp->value);
-		temp = temp->next;
 	}
 	return (head);
 }
@@ -168,3 +158,7 @@ t_token	*variable_token(char *input, int *i)
 	return (result);
 }
 
+/*
+# TODO
+# special_token; tokenizer_input; variable_token_utils(double '$$'); 
+*/
