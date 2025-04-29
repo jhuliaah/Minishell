@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 21:00:21 by jhualves          #+#    #+#             */
-/*   Updated: 2025/04/28 23:56:22 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/04/29 00:12:11 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*expand_dquote(char *value, char **envp)
 	char	*temp;
 	char	*temp1;
 
-	result = "";
+	result = ft_strdup("");
 	str = value;
 	i = 0;
 	while (str[i])
@@ -41,7 +41,7 @@ char	*expand_dquote(char *value, char **envp)
 			while (ft_isalnum(str[i]) && str[i] == '_')
 				i++;
 		}
-		else if (str[i] == ' ') //não precisa, ele só considera um espaço hehehe verificar bash (JULIO NÃP CONSEGUIU AFIRMAR)
+		else if (str[i] == ' ')
 		{
 			while (str[i] == ' ')
 				i++;
@@ -62,6 +62,7 @@ char	*expand_dquote(char *value, char **envp)
 			result = ft_strjoin(result, temp);
 		}
 	}
+	return (result);
 }
 
 char	*expand_variable(char *value, char **envp)
@@ -97,10 +98,10 @@ char	*expand_multi_variable(char *value, int j, int count, int rest,
 	char	*result;
 	char	*temp;
 
-	result = "";
+	result = ft_strdup("");
 	while (count > 0)
 	{
-		temp = ft_strdup(getpid());
+		temp = ft_strdup(get_pid()); //função get_pid a ser criada;
 		if (!result)
 			result = temp;
 		result = ft_strjoin(result, temp);
@@ -124,6 +125,8 @@ char	*expand_one_variable(char *value, char **envp)
 	char	*variable;
 	char	*result;
 
+	i = 0;
+	result = ft_strdup("");
 	if (value[i] == '$' && value[i + 1] == ' ')
 		return (ft_strdup('$'));
 	while (value[i] != ' ')
@@ -139,5 +142,5 @@ char	*expand_one_variable(char *value, char **envp)
 		}
 		env = env->next;
 	}
-	//criar verificação se não achou a variavel de ambiente
+	return (result);
 }
