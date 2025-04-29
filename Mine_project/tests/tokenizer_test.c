@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 15:08:43 by jhualves          #+#    #+#             */
-/*   Updated: 2025/04/18 18:52:59 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/04/28 18:42:59 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void test_single_quotes()
 	assert(strcmp(tokens->value, "echo") == 0);
 
 	assert(tokens->next != NULL);
-	assert(tokens->next->type == TOKEN_WORD);
+	assert(tokens->next->type == TOKEN_QUOTE);
 	assert(strcmp(tokens->next->value, "hello world") == 0);
 
 	assert(tokens->next->next == NULL);
@@ -86,7 +86,7 @@ void test_double_quotes()
 	assert(strcmp(tokens->value, "echo") == 0);
 
 	assert(tokens->next != NULL);
-	assert(tokens->next->type == TOKEN_WORD);
+	assert(tokens->next->type == TOKEN_DQUOTE);
 	assert(strcmp(tokens->next->value, "hello $USER") == 0);
 
 	assert(tokens->next->next == NULL);
