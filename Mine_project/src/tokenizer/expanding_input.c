@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 21:00:21 by jhualves          #+#    #+#             */
-/*   Updated: 2025/04/29 00:12:11 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/04/29 19:59:22 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,18 @@ char	*expand_dquote(char *value, char **envp)
 		}
 		else if (str[i] == ' ')
 		{
+			temp1 = str + i;
+			j = 0;
 			while (str[i] == ' ')
+			{
 				i++;
-			result = ft_strjoin(result, ' ');
+				j++;
+			}
+			if (!result)
+				result = ft_strndup(value, (size_t)i);
+			temp = ft_strndup(temp1, j);
+			result = ft_strjoin(result, temp);
+			free(temp);
 		}
 		else
 		{
@@ -101,7 +110,7 @@ char	*expand_multi_variable(char *value, int j, int count, int rest,
 	result = ft_strdup("");
 	while (count > 0)
 	{
-		temp = ft_strdup(get_pid()); //função get_pid a ser criada;
+		temp = ft_strdup(get_pid());
 		if (!result)
 			result = temp;
 		result = ft_strjoin(result, temp);
@@ -143,4 +152,14 @@ char	*expand_one_variable(char *value, char **envp)
 		env = env->next;
 	}
 	return (result);
+}
+
+char *get_pid(void)
+{
+	pid_t	pid;
+	char	*pid_str;
+
+	pid = getpid();
+	pid_str = ft_itoa(pid);
+	return (pid_str);
 }

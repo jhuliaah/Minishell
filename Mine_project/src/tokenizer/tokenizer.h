@@ -6,25 +6,20 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 14:41:53 by jhualves          #+#    #+#             */
-/*   Updated: 2025/04/28 23:58:33 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/04/29 20:06:42 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKENIZER_H
 # define TOKENIZER_H
 
-# include "../Libft42/libft.h"
+# include "../../minishell.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
 # include <sys/wait.h>
 # include <fcntl.h>
-
-/*
-# Creating a enum struct with all the types of tokens;
-#
-*/
 
 typedef enum e_token_type
 {
@@ -66,7 +61,6 @@ t_token	*variable_token_utils_1(char *input, int *i);
 // void	link_node(t_token **head, t_token **curr, t_token **new_node);
 t_token	*variable_token_utils(int *i, int count, int rest);
 
-//env
 t_env	*init_env(char **envp);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 14:41:46 by jhualves          #+#    #+#             */
-/*   Updated: 2025/04/18 19:37:49 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/04/29 20:37:48 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,8 +157,3 @@ t_token	*variable_token(char *input, int *i)
 
 	return (result);
 }
-
-/*
-# TODO
-# special_token; tokenizer_input; variable_token_utils(double '$$'); 
-*/
