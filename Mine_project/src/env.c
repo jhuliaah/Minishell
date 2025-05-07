@@ -1,23 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/29 20:27:33 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/06 15:15:00 by jhualves         ###   ########.fr       */
+/*   Created: 2025/04/28 18:49:53 by jhualves          #+#    #+#             */
+/*   Updated: 2025/05/07 19:27:02 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
-t_shell	*get_shell_ptr(t_shell *passed_shell_ptr)
-{
-	static t_shell	*shell_ptr;
-
-	if (passed_shell_ptr)
-		shell_ptr = passed_shell_ptr;
-	return (shell_ptr);
-}
-
+void	init_env()

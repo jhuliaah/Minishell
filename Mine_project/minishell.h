@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 20:01:02 by jhualves          #+#    #+#             */
-/*   Updated: 2025/04/29 20:27:19 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/06 15:06:52 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,14 @@ typedef struct shell
 	void				*pointer;
 	struct t_minishell	*next;
 }	t_shell;
+
+
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}	t_env;
 
 
 t_shell	*get_shell_ptr(t_shell *passed_shell_ptr);
