@@ -6,13 +6,13 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 15:08:43 by jhualves          #+#    #+#             */
-/*   Updated: 2025/04/28 18:42:59 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/07 20:35:54 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //#include "tokenizer.h"
 
-#include "../src/tokenizer.h"
+#include "../../minishell.h"
 #include <assert.h>
 #include <stdio.h>
 #include <string.h>

@@ -6,10 +6,9 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 18:49:53 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/07 19:27:02 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/07 20:34:55 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	init_env()

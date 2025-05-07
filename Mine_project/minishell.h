@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 20:01:02 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/07 20:31:26 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/07 20:32:56 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,18 @@ typedef struct s_token
 	t_token_type	type;
 	struct s_token	*next;
 }	t_token;
+
+int		is_special_char(char c);
+void	free_tokens(t_token *tok);
+t_token	*tokenizer_input(char *input);
+t_token	*word_token(char *input, int *i);
+t_token	*special_token(char *input, int *i);
+t_token	*new_token(t_token_type type, char *word);
+t_token *quote_token(char *input, int *i);
+t_token *dquote_token(char *input, int *i);
+t_token	*variable_token(char *input, int *i);
+t_token	*variable_token_utils_1(char *input, int *i);
+t_token	*variable_token_utils(int *i, int count, int rest);
 
 /******************************
  *         ENVIRONMENT        *
@@ -98,6 +110,9 @@ typedef struct s_context
 	pid_t			*child_pids; // Lista de PIDs de processos filhos (opcional)
 	int				child_count; // Número de processos filhos
 }	t_context;
+
+
+
 
 
 #endif

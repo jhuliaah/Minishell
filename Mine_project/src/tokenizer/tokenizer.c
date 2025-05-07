@@ -6,11 +6,11 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 14:41:46 by jhualves          #+#    #+#             */
-/*   Updated: 2025/04/29 20:37:48 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/07 20:33:42 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenizer.h"
+#include "../../minishell.h"
 
 /*
 # This function creates a linked-list with all types of tokens and it's value

@@ -6,11 +6,11 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 22:52:37 by jhualves          #+#    #+#             */
-/*   Updated: 2025/04/28 18:39:44 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/07 20:33:54 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenizer.h"
+#include "../../minishell.h"
 
 int	is_special_char(char c)
 {

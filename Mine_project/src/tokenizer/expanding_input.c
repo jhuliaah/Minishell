@@ -6,11 +6,11 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 21:00:21 by jhualves          #+#    #+#             */
-/*   Updated: 2025/04/29 19:59:22 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/07 20:34:00 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenizer.h"
+#include "../../minishell.h"
 
 char	*expand_quote(char *value)
 {
