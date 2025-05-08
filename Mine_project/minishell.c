@@ -6,18 +6,38 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 20:27:33 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/06 15:15:00 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/07 21:46:52 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_shell	*get_shell_ptr(t_shell *passed_shell_ptr)
+int	main(int argc, char **argv, char **envp)
 {
-	static t_shell	*shell_ptr;
+	t_context	*ctx;
+	char		*prompt;
+	char		*input;
 
-	if (passed_shell_ptr)
-		shell_ptr = passed_shell_ptr;
-	return (shell_ptr);
+	ctx = init_context(envp);
+	if (!ctx)
+		return (EXIT_FAILURE);
+	while (1)
+	{
+		if (ctx->is_interactive)
+			prompt = "minishell> ";
+		else
+			prompt = "";
+		input = readline(prompt);
+		if (!input)
+			break ;
+		if (input[0] != '\0')
+		{
+			add_history(input);
+			process_input(ctx, input);
+			free_all_allocations(ctx);
+		}
+		free(input);
+	}
+	return (free_context(ctx), EXIT_SUCCESS);
 }
 
