@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 20:01:02 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/07 20:32:56 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/12 10:48:35 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@
 # include <string.h>
 # include <unistd.h>
 # include <sys/wait.h>
+# include <signal.h>
 # include <fcntl.h>
+# include <stdbool.h>
 
 /******************************
  *          TOKENS            *
@@ -104,15 +106,12 @@ typedef struct s_allocation
  ******************************/
 typedef struct s_context
 {
-	t_env			*env; //variáveis de ambiente
-	t_allocation	*allocations; // Lista de alocações de memória
-	int				exit_status; // Status de de saída do último comando
-	pid_t			*child_pids; // Lista de PIDs de processos filhos (opcional)
-	int				child_count; // Número de processos filhos
+	t_env			*env;          // Variáveis de ambiente
+	t_allocation	*allocations;  // Alocações rastreadas
+	bool			is_interactive;// Modo de execução
+	int				exit_status;   // Último status de saída (0-255)
+	bool			fatal_error;   // Erro crítico detectado
+	pid_t			last_child_pid;// PID do último processo executado
 }	t_context;
-
-
-
-
 
 #endif
