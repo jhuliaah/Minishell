@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 20:01:02 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/12 10:48:35 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/16 15:15:55 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ t_token	*tokenizer_input(char *input);
 t_token	*word_token(char *input, int *i);
 t_token	*special_token(char *input, int *i);
 t_token	*new_token(t_token_type type, char *word);
-t_token *quote_token(char *input, int *i);
-t_token *dquote_token(char *input, int *i);
+t_token	*quote_token(char *input, int *i);
+t_token	*dquote_token(char *input, int *i);
 t_token	*variable_token(char *input, int *i);
 t_token	*variable_token_utils_1(char *input, int *i);
 t_token	*variable_token_utils(int *i, int count, int rest);

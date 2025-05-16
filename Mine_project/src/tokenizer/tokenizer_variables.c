@@ -1,75 +1,69 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer_utils.c                                  :+:      :+:    :+:   */
+/*   tokenizer_variables.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 22:52:37 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/12 12:13:56 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/16 16:07:08 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	is_special_char(char c)
-{
-	return (c == '|' || c == '<' || c == '>' || c == '$');
-}
-
 /*
 # The expected behaviour for de values "$$" in bash is to get 
 # the pid of the current process; and when the value "$" is to create a variable
 */
-t_token	*variable_token_utils(int *i, int count, int rest)
+t_token	*variable_token_get_pid(int *index, int num_pairs, int remainder)
 {
-	t_token	*head = NULL;
-	t_token	*tail = NULL;
-	t_token	*new_node;
-	int		j = count * 2 + rest;
+	t_token	*head;
+	int		total_chars;
 
-	// Cria os tokens para cada "$$"
-	while (count >= 1)
-	{
-		new_node = new_token(TOKEN_VARIABLE, ft_strdup("$$"));
-		if (!new_node)
-			return (NULL);
-		if (!head)
-		{
-			head = new_node;
-			tail = new_node;
-		}
-		else
-		{
-			tail->next = new_node;
-			tail = new_node;
-		}
-		count--;
-	}
-
-	// Cria o token para "$" se tiver sobra (ímpar)
-	while (rest > 0)
-	{
-		new_node = new_token(TOKEN_VARIABLE, ft_strdup("$"));
-		if (!new_node)
-			return (NULL);
-		if (!head)
-		{
-			head = new_node;
-			tail = new_node;
-		}
-		else
-		{
-			tail->next = new_node;
-			tail = new_node;
-		}
-		rest--;
-	}
-	*i += j;
+	head = NULL;
+	total_chars = 0;
+	if (!create_double_dollar_tokens(&head, num_pairs))
+		return (NULL);
+	if (!create_single_dollar_token(&head, remainder))
+		return (NULL);
+	total_chars = (num_pairs * 2) + remainder;
+	*index += total_chars;
 	return (head);
 }
 
-t_token	*variable_token_utils_1(char *input, int *i)
+int	create_double_dollar_tokens(t_token **head, int count)
+{
+	t_token	*new_node;
+	t_token	*tail;
+	int		i;
+
+	tail = NULL;
+	i = 0;
+	while (i++ < count)
+	{
+		new_node = new_token(TOKEN_VARIABLE, ft_strdup("$$"));
+		if (!add_token_node(head, &tail, new_node))
+			return (0);
+	}
+	return (1);
+}
+
+int	create_single_dollar_token(t_token **head, int remainder)
+{
+	t_token	*new_node;
+	t_token	*tail;
+
+	if (remainder <= 0)
+		return (1);
+	tail = *head;
+	while (tail && tail->next)
+		tail = tail->next;
+	new_node = new_token(TOKEN_VARIABLE, ft_strdup("$"));
+	return (add_token_node(head, &tail, new_node));
+}
+
+t_token	*variable_token_env(char *input, int *i)
 {
 	int		j;
 	char	*word;
@@ -88,20 +82,6 @@ t_token	*variable_token_utils_1(char *input, int *i)
 	*i += j;
 	return (new_node);
 }
-
-// void	link_node(t_token **head, t_token **curr, t_token **new_node)
-// {
-// 	if (!head)
-// 	{
-// 		head = new_node;
-// 		curr = new_node;
-// 	}
-// 	else
-// 	{
-// 		(*curr)->next = new_node;
-// 		curr = new_node;
-// 	}
-// }
 
 t_token	*dquote_token(char *input, int *i)
 {
@@ -139,18 +119,4 @@ t_token	*quote_token(char *input, int *i)
 	new_node = new_token(TOKEN_QUOTE, word);
 	*i = j + 1;
 	return (new_node);
-}
-
-
-void	free_tokens(t_token *tok)
-{
-	t_token	*tmp;
-
-	while (tok)
-	{
-		tmp = tok;
-		tok = tok->next;
-		free(tmp->value);
-		free(tmp);
-	}
 }

@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 21:00:21 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/07 20:34:00 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/16 15:23:24 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,14 +152,4 @@ char	*expand_one_variable(char *value, char **envp)
 		env = env->next;
 	}
 	return (result);
-}
-
-char *get_pid(void)
-{
-	pid_t	pid;
-	char	*pid_str;
-
-	pid = getpid();
-	pid_str = ft_itoa(pid);
-	return (pid_str);
 }
