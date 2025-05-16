@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 20:27:33 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/11 02:38:28 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/12 12:26:59 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_context	*ctx;
+	static t_context	*ctx;
 	char		*prompt;
 	char		*input;
 

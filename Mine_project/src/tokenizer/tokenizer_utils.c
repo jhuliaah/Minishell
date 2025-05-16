@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 22:52:37 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/07 20:33:54 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/12 12:13:56 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_special_char(char c)
 {
-	return (c == '|' || c == '<' || c == '>' || c == '$' || c == '~'); // CRIAR TOKEN PRO TIL
+	return (c == '|' || c == '<' || c == '>' || c == '$');
 }
 
 /*
