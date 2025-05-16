@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 14:42:26 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/16 16:30:44 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/16 17:13:57 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,7 @@
 
 /*GLOBAL VARIABLE FUNCTION*/
 
-t_context	*get_context(void)
-{
-	return (get_ctx());
-}
+
 
 /*tokens_utils*/
 
