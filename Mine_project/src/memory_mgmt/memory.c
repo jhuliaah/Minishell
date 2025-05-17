@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 15:23:21 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/12 11:37:52 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/17 17:17:50 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	safe_malloc(t_context *ctx, size_t size)
 	add_allocation(ctx, ptr);
 	return (ptr);
 }
+
 
 void	remove_allocation(t_context *ctx, void *ptr)
 {
