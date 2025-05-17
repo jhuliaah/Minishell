@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 21:00:21 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/16 15:23:24 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/17 17:20:52 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,59 +17,52 @@ char	*expand_quote(char *value)
 	return (ft_strtrim(value, '\''));
 }
 
-char	*expand_dquote(char *value, char **envp)
+static char	*handle_dollar(char *str, int *i, t_context *ctx)
 {
-	int		i;
-	int		j;
-	char	*str;
-	char	*result;
 	char	*temp;
-	char	*temp1;
+	char	*result;
 
-	result = ft_strdup("");
-	str = value;
-	i = 0;
-	while (str[i])
+	temp = expand_variable(str + *i, ctx);
+	result = ft_strndup(str, *i);
+	result = ft_strjoin_free(result, temp);
+	free(temp);
+	while (ft_isalnum(str[*i]) || str[*i] == '_')
+		(*i)++;
+	return (result);
+}
+
+static char	*handle_space(char *str, int *i)
+{
+	int		j;
+	char	*temp;
+
+	j = 0;
+	while (str[*i] == ' ')
 	{
-		if (str[i] == '$')
-		{
-			temp = expand_variable(value + i, envp);
-			if (!result)
-				result = ft_strndup(value, (size_t)i);
-			result = ft_strjoin(result, temp);
-			free (temp);
-			while (ft_isalnum(str[i]) && str[i] == '_')
-				i++;
-		}
-		else if (str[i] == ' ')
-		{
-			temp1 = str + i;
-			j = 0;
-			while (str[i] == ' ')
-			{
-				i++;
-				j++;
-			}
-			if (!result)
-				result = ft_strndup(value, (size_t)i);
-			temp = ft_strndup(temp1, j);
-			result = ft_strjoin(result, temp);
-			free(temp);
-		}
+		(*i)++;
+		j++;
+	}
+	temp = ft_strndup(str + *i - j, j);
+	return (temp);
+}
+
+char	*expand_dquote(char *value)
+{
+	t_context	*ctx;
+	char		*result;
+	int			i;
+
+	ctx = get_context();
+	result = safe_strdup(ctx, "");
+	i = 0;
+	while (value[i])
+	{
+		if (value[i] == '$')
+			result = ft_strjoin_free(result, handle_dollar(value, &i, ctx));
+		else if (value[i] == ' ')
+			result = ft_strjoin_free(result, handle_space(value, &i));
 		else
-		{
-			temp1 = str + i;
-			j = 0;
-			while (str[i] != ' ' && str[i] != '$')
-			{
-				i++;
-				j++;
-			}
-			if (!result)
-				result = ft_strndup(value, (size_t)i);
-			temp = ft_strndup(temp1, j);
-			result = ft_strjoin(result, temp);
-		}
+			result = ft_strjoin_free(result, handle_other_chars(value, &i));
 	}
 	return (result);
 }
@@ -98,58 +91,5 @@ char	*expand_variable(char *value, char **envp)
 	}
 	else
 		result = expand_one_variable(value, envp);
-	return (result);
-}
-
-char	*expand_multi_variable(char *value, int j, int count, int rest,
-	char **envp)
-{
-	char	*result;
-	char	*temp;
-
-	result = ft_strdup("");
-	while (count > 0)
-	{
-		temp = ft_strdup(get_pid());
-		if (!result)
-			result = temp;
-		result = ft_strjoin(result, temp);
-		free(temp);
-		count--;
-	}
-	if (rest == 1)
-	{
-		j--;
-		temp = expand_one_variable(value + j, envp);
-		result = ft_strjoin(result, temp);
-		free(temp);
-	}
-	return (result);
-}
-
-char	*expand_one_variable(char *value, char **envp)
-{
-	size_t	i;
-	t_env	*env;
-	char	*variable;
-	char	*result;
-
-	i = 0;
-	result = ft_strdup("");
-	if (value[i] == '$' && value[i + 1] == ' ')
-		return (ft_strdup('$'));
-	while (value[i] != ' ')
-		i++;
-	variable = ft_strndup(value, i);
-	env = init_env(envp);
-	while (env)
-	{
-		if (ft_strcmp(env->key, variable))
-		{
-			result = ft_strdup(env->value);
-			return (result);
-		}
-		env = env->next;
-	}
 	return (result);
 }
