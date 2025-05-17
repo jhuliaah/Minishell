@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 20:01:02 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/16 15:15:55 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/17 19:15:40 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,19 @@ typedef struct s_token
 	t_token_type	type;
 	struct s_token	*next;
 }	t_token;
+
+typedef struct s_redir {
+    t_token_type      type;
+    char              *file;
+    struct s_redir    *next;
+} t_redir;
+
+typedef struct s_cmd {
+    char            **args;     // Argumentos (ex: ["ls", "-l", NULL])
+    t_redir          *redirs;    // Redirecionamentos
+    struct s_cmd     *next;      // Próximo comando (para pipes)
+} t_cmd;
+
 
 int		is_special_char(char c);
 void	free_tokens(t_token *tok);

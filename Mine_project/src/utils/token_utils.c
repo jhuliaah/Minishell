@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 14:42:26 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/16 17:13:57 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/17 18:52:06 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-/*GLOBAL VARIABLE FUNCTION*/
+t_token	*new_token(t_token_type type, char *word)
+{
+	t_context	*ctx;
+	t_token		*new_token;
 
-
-
-/*tokens_utils*/
+	ctx = get_context();
+	new_token = safe_malloc(ctx, sizeof(t_token));
+	new_token->type = type;
+	new_token->value = safe_strdup(ctx, word);
+	new_token->next = NULL;
+	return (new_token);
+}
 
 void	free_tokens(t_token *tok)
 {
@@ -61,4 +68,41 @@ int	add_token_node(t_token **head, t_token **tail, t_token *new_node)
 		*tail = new_node;
 	}
 	return (1);
+}
+int	count_consecutive_chars(char *str, char c)
+{
+    int count = 0;
+    
+    while (str[count] == c)
+        count++;
+    return (count);
+}
+
+void	add_token(t_context *ctx, t_token **list, char *value, t_token_type type)
+{
+    t_token *new_node = new_token(type, value);
+    t_token *curr = *list;
+
+    if (!curr)
+        *list = new_node;
+    else
+    {
+        while (curr->next)
+            curr = curr->next;
+        curr->next = new_node;
+    }
+}
+
+t_token	*free_tokens(t_context *ctx, t_token *head)
+{
+    t_token *tmp;
+
+    while (head)
+    {
+        tmp = head;
+        head = head->next;
+        safe_free(ctx, tmp->value);
+        safe_free(ctx, tmp);
+    }
+    return (NULL);
 }
