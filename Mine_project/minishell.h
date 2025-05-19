@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 20:01:02 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/19 14:42:36 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/19 17:54:44 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct s_cmd
 {
 	char			**args; // Argumentos do comando (ex: {"ls", "-l", NULL})
 	t_redir			*redirs; // Lista de redirecionamentos
+	bool			no_newline; // Flag para -n (novo campo!)
 	struct s_cmd	*next; // Próximo comando (para pipelines)
 	struct s_cmd	*prev; // comando anterior (caso necessário)
 }	t_cmd;
