@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expanding_one_variable.c                           :+:      :+:    :+:   */
+/*   expanding_variables.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 17:20:31 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/17 17:22:25 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/18 20:15:07 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-static char	*handle_even_dollars(int count, char *value, t_context *ctx)
+char	*handle_even_dollars(int count, char *value, t_context *ctx)
 {
 	char	*result;
 

@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 20:01:02 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/17 19:15:40 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/19 14:42:36 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,25 +60,10 @@ typedef struct s_cmd {
     struct s_cmd     *next;      // Próximo comando (para pipes)
 } t_cmd;
 
-
-int		is_special_char(char c);
-void	free_tokens(t_token *tok);
-t_token	*tokenizer_input(char *input);
-t_token	*word_token(char *input, int *i);
-t_token	*special_token(char *input, int *i);
-t_token	*new_token(t_token_type type, char *word);
-t_token	*quote_token(char *input, int *i);
-t_token	*dquote_token(char *input, int *i);
-t_token	*variable_token(char *input, int *i);
-t_token	*variable_token_utils_1(char *input, int *i);
-t_token	*variable_token_utils(int *i, int count, int rest);
-
 /******************************
  *         ENVIRONMENT        *
  ******************************/
-// Nome da variável (ex: "PATH")
-// Valor da variável (ex: "/usr/bin")
-// Próximo nó (lista encadeada)
+
 typedef struct s_env
 {
 	char			*key;
@@ -126,5 +111,68 @@ typedef struct s_context
 	bool			fatal_error;   // Erro crítico detectado
 	pid_t			last_child_pid;// PID do último processo executado
 }	t_context;
+
+ /******************************
+ *         FUNCTIONS           *
+ ******************************/
+
+int		is_special_char(char c);
+t_token	*tokenizer_input(char *input);
+t_token	*word_token(char *input, int *i);
+t_token	*special_token(char *input, int *i);
+t_token	*new_token(t_token_type type, char *word);
+t_token	*quote_token(char *input, int *i);
+t_token	*dquote_token(char *input, int *i);
+t_token	*variable_token(char *input, int *i);
+t_token	*variable_token_utils_1(char *input, int *i);
+t_token	*variable_token_utils(int *i, int count, int rest);
+
+
+/* Main.c */
+
+int	main(int argc, char **argv, char **envp);
+void	set_context(t_context *new_ctx);
+t_context	**get_ctx_handle(void);
+
+
+/*Tokenizer*/
+t_token	*tokenizer_input(char *input);
+t_token	*word_token(char *input, int *i);
+t_token	*special_token(char *input, int *i);
+t_token	*handle_dollar_groups(int count, int rest, int *i);
+t_token	*variable_token(char *input, int *i);
+void	handle_operator(char *input, int *i, t_token **new_node);
+t_token	*process_next_token(char *input, int *i);
+
+t_token	*variable_token_get_pid(int *index, int num_pairs, int remainder);
+int		create_double_dollar_tokens(t_token **head, int count);
+int		create_single_dollar_token(t_token **head, int remainder);
+t_token	*variable_token_env(char *input, int *i);
+t_token	*dquote_token(char *input, int *i);
+t_token	*quote_token(char *input, int *i);
+
+char	*handle_even_dollars(int count, char *value, t_context *ctx);
+char	*expand_variable(char *value, t_context *ctx);
+char	*find_env_value(t_env *env, char *var);
+char	*expand_one_variable(char *value, t_context *ctx);
+char	*expand_multi_variable(char *value, int count, int rest, t_context *ctx);
+
+char	*expand_quote(char *value);
+char	*handle_dollar(char *str, int *i, t_context *ctx);
+char	*handle_space(char *str, int *i);
+char	*expand_dquote(char *value);
+
+void	free_tokens(t_context *ctx, t_token *tok);
+
+
+
+
+
+
+
+
+
+
+
 
 #endif

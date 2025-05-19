@@ -6,14 +6,14 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 20:27:33 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/16 17:14:48 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/18 20:08:54 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // Retorna o endereço do ponteiro, não o ponteiro em si
-static t_context	**get_ctx_handle(void)
+t_context	**get_ctx_handle(void)
 {
 	static t_context	*ctx;
 

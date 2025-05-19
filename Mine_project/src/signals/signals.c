@@ -6,12 +6,14 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 22:21:53 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/12 11:44:53 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/19 15:06:09 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 #include <signal.h>
+
+//ARRUMAR ISSO AQUI
 
 void	setup_signals(t_context *ctx)
 {

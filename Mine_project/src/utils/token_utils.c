@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 14:42:26 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/17 18:52:06 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/19 14:47:39 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,19 @@ t_token	*new_token(t_token_type type, char *word)
 	return (new_token);
 }
 
-void	free_tokens(t_token *tok)
+void	free_tokens(t_context *ctx, t_token *tok)
 {
 	t_token	*tmp;
 
+	if (!ctx || !tok) // Verifica contexto e tokens
+		return ;
 	while (tok)
 	{
 		tmp = tok;
 		tok = tok->next;
-		free(tmp->value);
-		free(tmp);
+		if (tmp->value)
+			safe_free(ctx, tmp->value); // Libera valor usando o contexto
+		safe_free(ctx, tmp); // Libera o nó do token
 	}
 }
 
@@ -93,16 +96,21 @@ void	add_token(t_context *ctx, t_token **list, char *value, t_token_type type)
     }
 }
 
-t_token	*free_tokens(t_context *ctx, t_token *head)
+void	add_eof_token(t_context *ctx, t_token **head)
 {
-    t_token *tmp;
+    t_token *eof_token = safe_malloc(ctx, sizeof(t_token));
+    
+    eof_token->type = TOKEN_EOF;
+    eof_token->value = NULL;
+    eof_token->next = NULL;
 
-    while (head)
+    if (!*head)
+        *head = eof_token;
+    else
     {
-        tmp = head;
-        head = head->next;
-        safe_free(ctx, tmp->value);
-        safe_free(ctx, tmp);
+        t_token *curr = *head;
+        while (curr->next)
+            curr = curr->next;
+        curr->next = eof_token;
     }
-    return (NULL);
 }
