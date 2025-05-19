@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 20:27:33 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/18 20:08:54 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/19 16:17:54 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,14 @@ t_context	*get_context(void)
 	return (*get_ctx_handle());
 }
 
-int	main(int argc, char **argv, char **envp)
+void	main_loop(t_context *ctx)
 {
-	static t_context	*ctx;
-	char				*prompt;
-	char				*input;
+	char	*input;
+	char	*prompt;
 
-	ctx = init_context(envp);
-	if (!ctx)
-		return ((ft_putstr("Erro: Contexto não inicializado!")), EXIT_FAILURE);
-	set_context(ctx);
 	while (1)
 	{
-		//TODO - CREATE A FUNCTION TO THE MAIN LOOP
-		prompt = "";
-		if (ctx->is_interactive)
-			prompt = "minishell> ";
+		prompt = get_prompt(ctx);
 		input = readline(prompt);
 		if (!input)
 			break ;
@@ -67,5 +59,39 @@ int	main(int argc, char **argv, char **envp)
 		free(input);
 		free_all_allocations(ctx);
 	}
-	return (free_context(ctx), ctx->exit_status);
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	t_context	*ctx;
+	int			exit_status;
+
+	ctx = init_context(envp);
+	if (!ctx)
+		return (ft_putstr_fd("minishell: initialization error\n", 2), \
+				EXIT_FAILURE);
+	set_context(ctx);
+	main_loop(ctx);
+	exit_status = ctx->exit_status;
+	free_context(ctx);
+	return (exit_status);
+}
+
+void	print_prompt(t_context *ctx)
+{
+	if (ctx->is_interactive)
+		ft_putstr_fd("minishell> ", STDOUT_FILENO);
+}
+
+char	*get_prompt(t_context *ctx)
+{
+	if (ctx->is_interactive)
+		return ("minishell> ");
+	else
+		return ("");
+}
+
+bool	should_process_input(char *input)
+{
+	return (input[0] != '\0');
 }
