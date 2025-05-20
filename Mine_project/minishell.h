@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 20:01:02 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/20 18:38:21 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 19:12:35 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,6 @@ char		*expand_multi_variable(char *value, int count, int rest, \
 /*handle_quote_tokens.c*/
 t_token		*dquote_token(char *input, int *i);
 t_token		*quote_token(char *input, int *i);
-char		*expand_quote(char *value);
 
 /*tokenizer_variables.c*/
 t_token		*variable_token(char *input, int *i);

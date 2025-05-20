@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 20:54:43 by jhualves          #+#    #+#             */
-/*   Updated: 2024/11/04 20:46:52 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 19:06:46 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,3 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	ptr[i] = '\0';
 	return (ptr);
 }
-
-// int	main(void)
-// {
-// 	const char		*s;
-// 	char			*t;
-// 	unsigned int	start;
-// 	size_t			len;
-
-// 	s = "Hall of fame";
-// 	start = 2;
-// 	len = 5;
-// 	t = ft_substr(s, start, len);
-// 	printf("%s", t);
-// 	return (0);
-// }
