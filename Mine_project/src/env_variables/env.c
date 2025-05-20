@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 18:49:53 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/16 15:18:09 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 16:13:07 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,11 @@ int	load_environment(t_context *ctx, char **envp)
 		node = safe_malloc(ctx, sizeof(t_env));
 		if (!node)
 			return (0);
-
 		node->key = strndup(envp[i], eq - envp[i]);
 		node->value = strdup(eq + 1);
 		node->next = ctx->env;
 		ctx->env = node;
 		i++;
 	}
-
 	return (1);
 }

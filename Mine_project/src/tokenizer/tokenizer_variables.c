@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 22:52:37 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/20 16:08:07 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 16:12:11 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,10 @@ t_token	*variable_token_env(char *input, int *i)
 	j = 0;
 	if (input[0] == '$')
 		j++;
-
 	while (input[j] && input[j] != ' ' && !is_special_char(input[j]))
 		j++;
-
 	word = ft_strndup(&input[1], j - 1);
 	new_node = new_token(TOKEN_VARIABLE, word);
-
 	*i += j;
 	return (new_node);
 }

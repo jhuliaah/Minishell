@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:40:09 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/20 15:55:35 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 16:11:32 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,32 +84,32 @@ void	expand_ast(t_context *ctx, t_cmd *ast)
 	}
 }
 
-void	execute_ast(t_context *ctx, t_cmd *ast) // verificar se essa função precisa ou se o Yuri fez
-{
-	t_cmd   *current = ast;
-	int     pipe_fd[2];
-	int     in_fd = STDIN_FILENO;
+// void	execute_ast(t_context *ctx, t_cmd *ast) // verificar se essa função precisa ou se o Yuri fez
+// {
+// 	t_cmd   *current = ast;
+// 	int     pipe_fd[2];
+// 	int     in_fd = STDIN_FILENO;
 
-	while (current)
-	{
-		// Cria pipe se houver próximo comando
-		if (current->next && pipe(pipe_fd) == -1)
-		{
-			perror("minishell");
-			ctx->exit_status = 1;
-			return ;
-		}
+// 	while (current)
+// 	{
+// 		// Cria pipe se houver próximo comando
+// 		if (current->next && pipe(pipe_fd) == -1)
+// 		{
+// 			perror("minishell");
+// 			ctx->exit_status = 1;
+// 			return ;
+// 		}
 
-		execute_command(ctx, current, in_fd, current->next ? pipe_fd[1] : STDOUT_FILENO);
-		// Prepara para o próximo comando no pipeline
-		if (in_fd != STDIN_FILENO)
-			close(in_fd);
-		if (current->next)
-		{
-			close(pipe_fd[1]);
-			in_fd = pipe_fd[0];
-		}
+// 		execute_command(ctx, current, in_fd, current->next ? pipe_fd[1] : STDOUT_FILENO);
+// 		// Prepara para o próximo comando no pipeline
+// 		if (in_fd != STDIN_FILENO)
+// 			close(in_fd);
+// 		if (current->next)
+// 		{
+// 			close(pipe_fd[1]);
+// 			in_fd = pipe_fd[0];
+// 		}
 
-		current = current->next;
-	}
-}
+// 		current = current->next;
+// 	}
+// }

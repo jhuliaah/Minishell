@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 14:41:46 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/20 16:09:18 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 16:12:35 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ t_token	*process_next_token(char *input, int *i)
 		new_node = handle_special_char(input, i);
 	else
 		new_node = handle_word(input, i);
-
 	if (!new_node)
 		return (NULL);
 	return (new_node);
@@ -72,7 +71,6 @@ t_token	*word_token(char *input, int *i)
 	start = *i;
 	while (input[*i] && !ft_isspace(input[*i]) && !is_special_char(input[*i]))
 		(*i)++;
-
 	word = safe_strndup(ctx, input + start, *i - start);
 	return (new_token(TOKEN_WORD, word));
 }
@@ -104,4 +102,3 @@ t_token	*handle_dollar_groups(int count, int rest, int *i)
 	*i += (count * 2) + rest;
 	return (result);
 }
-

@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 16:01:13 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/20 16:09:37 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 16:13:36 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	add_eof_token(t_context *ctx, t_token **head)
 	eof_token->type = TOKEN_EOF;
 	eof_token->value = NULL;
 	eof_token->next = NULL;
-
 	if (!*head)
 		*head = eof_token;
 	else

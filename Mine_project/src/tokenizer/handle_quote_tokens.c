@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 16:06:51 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/20 16:07:25 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 16:10:26 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,9 @@ t_token	*quote_token(char *input, int *i)
 	new_node = new_token(TOKEN_QUOTE, word);
 	*i = j + 1;
 	return (new_node);
+}
+
+char	*expand_quote(char *value)
+{
+	return (ft_strtrim(value, '\''));
 }
