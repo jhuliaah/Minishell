@@ -1,32 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/20 17:44:23 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/20 17:44:39 by jhualves         ###   ########.fr       */
+/*   Created: 2025/05/20 16:59:55 by jhualves          #+#    #+#             */
+/*   Updated: 2025/05/20 16:59:56 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-#include <readline/readline.h>
-#include <readline/history.h>
 
-void	handle_signal(int sig)
+char	*get_heredoc_position(char *str)
 {
-	if (sig == SIGINT)
+	while (*str && str[1])
 	{
-		write(1, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
+		if (*str == '\'')
+		{
+			str++;
+			while (*str && *str != '\'')
+				str++;
+		}
+		if (*str == '"')
+		{
+			str++;
+			while (*str && *str != '"')
+				str++;
+		}
+		if (*str == '<' && str[1] == '<')
+			return ((char *)str);
+		str++;
 	}
-}
-
-void	setup_signals(void)
-{
-	signal(SIGINT, handle_signal);
-	signal(SIGQUIT, SIG_IGN);
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 20:01:02 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/20 16:52:24 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 17:28:08 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define MINISHELL_H
 
 # include "Libft42/libft.h"
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <errno.h>
+# include <limits.h>
+# include <sys/fcntl.h>
+# include <string.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
@@ -22,6 +28,13 @@
 # include <signal.h>
 # include <fcntl.h>
 # include <stdbool.h>
+
+
+# define FAILURE -1
+# define TRUE 1
+# define FALSE 0
+# define SUCCESS 0
+# define FAILED 1
 
 /******************************
  *          TOKENS            *

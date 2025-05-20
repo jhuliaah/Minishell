@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/20 17:44:23 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/20 17:44:39 by jhualves         ###   ########.fr       */
+/*   Created: 2025/05/20 17:53:54 by jhualves          #+#    #+#             */
+/*   Updated: 2025/05/20 17:54:03 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-#include <readline/readline.h>
-#include <readline/history.h>
 
-void	handle_signal(int sig)
+int	ft_unset(t_cmd *cmd, t_env **env)
 {
-	if (sig == SIGINT)
+	int status = 0;
+
+	if (!cmd->args[1])
+		return (0);
+	
+	for (int i = 1; cmd->args[i]; i++)
 	{
-		write(1, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
+		if (!unset_env_value(env, cmd->args[i]))
+			status = 1;
 	}
-}
-
-void	setup_signals(void)
-{
-	signal(SIGINT, handle_signal);
-	signal(SIGQUIT, SIG_IGN);
+	return (status);
 }
