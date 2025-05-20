@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 14:42:26 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/19 14:47:39 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 16:01:40 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,45 +72,4 @@ int	add_token_node(t_token **head, t_token **tail, t_token *new_node)
 	}
 	return (1);
 }
-int	count_consecutive_chars(char *str, char c)
-{
-    int count = 0;
-    
-    while (str[count] == c)
-        count++;
-    return (count);
-}
 
-void	add_token(t_context *ctx, t_token **list, char *value, t_token_type type)
-{
-    t_token *new_node = new_token(type, value);
-    t_token *curr = *list;
-
-    if (!curr)
-        *list = new_node;
-    else
-    {
-        while (curr->next)
-            curr = curr->next;
-        curr->next = new_node;
-    }
-}
-
-void	add_eof_token(t_context *ctx, t_token **head)
-{
-    t_token *eof_token = safe_malloc(ctx, sizeof(t_token));
-    
-    eof_token->type = TOKEN_EOF;
-    eof_token->value = NULL;
-    eof_token->next = NULL;
-
-    if (!*head)
-        *head = eof_token;
-    else
-    {
-        t_token *curr = *head;
-        while (curr->next)
-            curr = curr->next;
-        curr->next = eof_token;
-    }
-}

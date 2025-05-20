@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 20:27:33 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/20 15:56:41 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 15:58:23 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,4 @@ int	main(int argc, char **argv, char **envp)
 	free_context(ctx);
 	return (exit_status);
 }
-
 
