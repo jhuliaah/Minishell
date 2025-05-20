@@ -6,32 +6,11 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 14:41:46 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/19 15:26:14 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 16:09:18 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-t_token	*process_next_token(char *input, int *i)
-{
-	t_context	*ctx;
-	t_token		*new_node;
-
-	ctx = get_context();
-	new_node = NULL;
-	if (input[*i] == '\'')
-		new_node = handle_single_quote(input, i);
-	else if (input[*i] == '\"')
-		new_node = handle_double_quote(input, i);
-	else if (is_special_char(input[*i]))
-		new_node = handle_special_char(input, i);
-	else
-		new_node = handle_word(input, i);
-
-	if (!new_node)
-		return (NULL);
-	return (new_node);
-}
 
 t_token	*tokenizer_input(char *input)
 {
@@ -60,6 +39,27 @@ t_token	*tokenizer_input(char *input)
 	}
 	add_eof_token(ctx, &head);
 	return (head);
+}
+
+t_token	*process_next_token(char *input, int *i)
+{
+	t_context	*ctx;
+	t_token		*new_node;
+
+	ctx = get_context();
+	new_node = NULL;
+	if (input[*i] == '\'')
+		new_node = handle_single_quote(input, i);
+	else if (input[*i] == '\"')
+		new_node = handle_double_quote(input, i);
+	else if (is_special_char(input[*i]))
+		new_node = handle_special_char(input, i);
+	else
+		new_node = handle_word(input, i);
+
+	if (!new_node)
+		return (NULL);
+	return (new_node);
 }
 
 t_token	*word_token(char *input, int *i)
@@ -105,40 +105,3 @@ t_token	*handle_dollar_groups(int count, int rest, int *i)
 	return (result);
 }
 
-t_token	*variable_token(char *input, int *i)
-{
-	int	count;
-	int	rest;
-
-	count = count_consecutive_chars(input + *i, '$');
-	rest = count % 2;
-	return (handle_dollar_groups(count / 2, rest, i));
-}
-
-void	handle_operator(char *input, int *i, t_token **new_node)
-{
-	t_token_type	type;
-
-	type = NULL;
-	if (input[*i] == '>' && input[*i + 1] == '>')
-	{
-		*new_node = new_token(TOKEN_REDIR_APPEND, ">>");
-		(*i) += 2;
-	}
-	else if (input[*i] == '<' && input[*i + 1] == '<')
-	{
-		*new_node = new_token(TOKEN_HEREDOC, "<<");
-		(*i) += 2;
-	}
-	else
-	{
-		if (input[*i] == '>')
-			type = TOKEN_REDIR_OUT;
-		else if (input[*i] == '<')
-			type = TOKEN_REDIR_IN;
-		else
-			type = TOKEN_PIPE;
-		*new_node = new_token(type, "|");
-		(*i)++;
-	}
-}

@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 14:42:26 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/20 16:01:40 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 16:04:39 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,3 @@ int	add_token_node(t_token **head, t_token **tail, t_token *new_node)
 	}
 	return (1);
 }
-

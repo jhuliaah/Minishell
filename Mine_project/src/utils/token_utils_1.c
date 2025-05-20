@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 16:01:13 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/20 16:02:30 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 16:09:37 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,32 @@ int	count_consecutive_chars(char *str, char c)
 	while (str[count] == c)
 		count++;
 	return (count);
+}
+
+void	handle_operator(char *input, int *i, t_token **new_node)
+{
+	t_token_type	type;
+
+	type = NULL;
+	if (input[*i] == '>' && input[*i + 1] == '>')
+	{
+		*new_node = new_token(TOKEN_REDIR_APPEND, ">>");
+		(*i) += 2;
+	}
+	else if (input[*i] == '<' && input[*i + 1] == '<')
+	{
+		*new_node = new_token(TOKEN_HEREDOC, "<<");
+		(*i) += 2;
+	}
+	else
+	{
+		if (input[*i] == '>')
+			type = TOKEN_REDIR_OUT;
+		else if (input[*i] == '<')
+			type = TOKEN_REDIR_IN;
+		else
+			type = TOKEN_PIPE;
+		*new_node = new_token(type, "|");
+		(*i)++;
+	}
 }

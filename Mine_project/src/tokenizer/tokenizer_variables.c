@@ -6,11 +6,21 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 22:52:37 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/16 16:07:08 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 16:08:07 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+t_token	*variable_token(char *input, int *i)
+{
+	int	count;
+	int	rest;
+
+	count = count_consecutive_chars(input + *i, '$');
+	rest = count % 2;
+	return (handle_dollar_groups(count / 2, rest, i));
+}
 
 /*
 # The expected behaviour for de values "$$" in bash is to get 
@@ -80,43 +90,5 @@ t_token	*variable_token_env(char *input, int *i)
 	new_node = new_token(TOKEN_VARIABLE, word);
 
 	*i += j;
-	return (new_node);
-}
-
-t_token	*dquote_token(char *input, int *i)
-{
-	char	*word;
-	t_token	*new_node;
-	int		start;
-	int		j;
-
-	start = *i + 1;
-	j = start;
-	while (input[j] && input[j] != '\"')
-		j++;
-	if (!input[j])
-		return (NULL);
-	word = ft_strndup(&input[start], j - start);
-	new_node = new_token(TOKEN_DQUOTE, word);
-	*i = j + 1;
-	return (new_node);
-}
-
-t_token	*quote_token(char *input, int *i)
-{
-	char	*word;
-	t_token	*new_node;
-	int		start;
-	int		j;
-
-	start = *i + 1;
-	j = start;
-	while (input[j] && input[j] != '\'')
-		j++;
-	if (!input[j])
-		return (NULL);
-	word = ft_strndup(&input[start], j - start);
-	new_node = new_token(TOKEN_QUOTE, word);
-	*i = j + 1;
 	return (new_node);
 }
