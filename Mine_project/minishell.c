@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 20:27:33 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/19 16:17:54 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 15:56:41 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,21 +77,4 @@ int	main(int argc, char **argv, char **envp)
 	return (exit_status);
 }
 
-void	print_prompt(t_context *ctx)
-{
-	if (ctx->is_interactive)
-		ft_putstr_fd("minishell> ", STDOUT_FILENO);
-}
 
-char	*get_prompt(t_context *ctx)
-{
-	if (ctx->is_interactive)
-		return ("minishell> ");
-	else
-		return ("");
-}
-
-bool	should_process_input(char *input)
-{
-	return (input[0] != '\0');
-}

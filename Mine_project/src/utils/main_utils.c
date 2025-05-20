@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 17:13:45 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/16 17:14:19 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 15:57:00 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,23 @@ int	load_environment(t_context *ctx, char **envp)
 		i++;
 	}
 	return (1);
+}
+
+void	print_prompt(t_context *ctx)
+{
+	if (ctx->is_interactive)
+		ft_putstr_fd("minishell> ", STDOUT_FILENO);
+}
+
+char	*get_prompt(t_context *ctx)
+{
+	if (ctx->is_interactive)
+		return ("minishell> ");
+	else
+		return ("");
+}
+
+bool	should_process_input(char *input)
+{
+	return (input[0] != '\0');
 }

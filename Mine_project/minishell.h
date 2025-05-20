@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 20:01:02 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/19 17:54:44 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 15:39:19 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,9 +164,6 @@ char	*handle_space(char *str, int *i);
 char	*expand_dquote(char *value);
 
 void	free_tokens(t_context *ctx, t_token *tok);
-
-
-
 
 
 

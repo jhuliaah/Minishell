@@ -6,12 +6,11 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 17:26:05 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/19 15:05:47 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 15:40:15 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
 
 t_cmd	*parse_tokens(t_token **tokens)
 {
