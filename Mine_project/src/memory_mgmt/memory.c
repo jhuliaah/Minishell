@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 15:23:21 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/20 16:43:47 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 18:56:16 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,28 @@ void	*safe_malloc(t_context *ctx, size_t size)
 	ptr = malloc(size);
 	if (!ptr)
 		return (NULL);
-	add_allocation(ctx, ptr);
+	if (!(add_allocation(ctx, ptr)))
+	{
+		free (ptr);
+		return (NULL);
+	}
 	return (ptr);
 }
 
-void	add_allocation(t_context *ctx, void *ptr)
+int	add_allocation(t_context *ctx, void *ptr)
 {
 	t_allocation	*new;
 
 	new = malloc(sizeof(t_allocation));
 	if (!new)
-		return ;
+	{
+		free(new);
+		return (0);
+	}
 	new->ptr = ptr;
 	new->next = ctx->allocations;
 	ctx->allocations = new;
+	return (1);
 }
 
 void	remove_allocation(t_context *ctx, void *ptr)
@@ -60,6 +68,8 @@ void	remove_allocation(t_context *ctx, void *ptr)
 
 void	safe_free(t_context *ctx, void *ptr)
 {
+	if (!ptr)
+		return ;
 	if (ptr)
 	{
 		remove_allocation(ctx, ptr);

@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 20:01:02 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/20 17:28:08 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 18:38:21 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ int			load_environment(t_context *ctx, char **envp);
 
 /*memory.c*/
 void		*safe_malloc(t_context *ctx, size_t size);
-void		add_allocation(t_context *ctx, void *ptr);
+int			add_allocation(t_context *ctx, void *ptr);
 void		remove_allocation(t_context *ctx, void *ptr);
 void		safe_free(t_context *ctx, void *ptr);
 void		free_all_allocations(t_context *ctx);
@@ -221,6 +221,7 @@ int			add_token_node(t_token **head, t_token **tail, t_token *new_node);
 /*variable_utils.c*/
 char		*safe_strdup(t_context *ctx, const char *s);
 char		*ft_strjoin_free(char *s1, char *s2);
+char		*ft_safe_strndup(t_context *ctx, const char *s, size_t size);
 
 
 

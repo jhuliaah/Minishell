@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 17:23:22 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/17 17:24:28 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 18:28:23 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,22 @@ char	*ft_strjoin_free(char *s1, char *s2)
 	free(s1);
 	free(s2);
 	return (result);
+}
+
+char	*ft_safe_strndup(t_context *ctx, const char *s, size_t size)
+{
+	size_t	i;
+	char	*dup;
+
+	dup = safe_malloc(ctx, size + 1);
+	if (dup == NULL)
+		return (NULL);
+	i = 0;
+	while (i < size)
+	{
+		dup[i] = s[i];
+		i++;
+	}
+	dup[i] = '\0';
+	return (dup);
 }
