@@ -6,21 +6,11 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 17:20:31 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/18 20:15:07 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 16:33:15 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-char	*handle_even_dollars(int count, char *value, t_context *ctx)
-{
-	char	*result;
-
-	result = safe_strdup(ctx, "");
-	while (count-- > 0)
-		result = ft_strjoin_free(result, safe_strdup(ctx, "$$"));
-	return (result);
-}
 
 char	*expand_variable(char *value, t_context *ctx)
 {
@@ -35,7 +25,7 @@ char	*expand_variable(char *value, t_context *ctx)
 		return (expand_one_variable(value, ctx));
 }
 
-static char	*find_env_value(t_env *env, char *var)
+char	*find_env_value(t_env *env, char *var)
 {
 	while (env)
 	{

@@ -6,11 +6,22 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 15:23:21 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/17 17:18:01 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 16:43:47 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+void	*safe_malloc(t_context *ctx, size_t size)
+{
+	void	*ptr;
+
+	ptr = malloc(size);
+	if (!ptr)
+		return (NULL);
+	add_allocation(ctx, ptr);
+	return (ptr);
+}
 
 void	add_allocation(t_context *ctx, void *ptr)
 {
@@ -22,17 +33,6 @@ void	add_allocation(t_context *ctx, void *ptr)
 	new->ptr = ptr;
 	new->next = ctx->allocations;
 	ctx->allocations = new;
-}
-
-void	safe_malloc(t_context *ctx, size_t size)
-{
-	void	*ptr;
-
-	ptr = malloc(size);
-	if (!ptr)
-		return (NULL);
-	add_allocation(ctx, ptr);
-	return (ptr);
 }
 
 void	remove_allocation(t_context *ctx, void *ptr)

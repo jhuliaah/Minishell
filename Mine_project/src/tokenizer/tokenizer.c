@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 14:41:46 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/20 16:12:35 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 16:38:03 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,19 +86,4 @@ t_token	*special_token(char *input, int *i)
 	return (new_node);
 }
 
-t_token	*handle_dollar_groups(int count, int rest, int *i)
-{
-	t_context	*ctx;
-	t_token		*result;
-	int			j;
 
-	ctx = get_context();
-	result = NULL;
-	j = 0;
-	while (j++ < count)
-		add_token(ctx, &result, "$$", TOKEN_VARIABLE);
-	if (rest)
-		add_token(ctx, &result, "$", TOKEN_VARIABLE);
-	*i += (count * 2) + rest;
-	return (result);
-}
