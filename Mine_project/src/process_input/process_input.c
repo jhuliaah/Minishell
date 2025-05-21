@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:40:09 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/20 16:11:32 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 20:45:24 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,20 +67,25 @@ bool	validate_syntax(t_token *tokens)
 
 void	expand_ast(t_context *ctx, t_cmd *ast)
 {
-	t_cmd	*current;
+	t_cmd	*current_cmd;
 	int		i;
+	char	*original_arg_value;
+	char	*expanded_arg_value;
 
-	current = ast;
-	while (current)
+	current_cmd = ast;
+	while (current_cmd)
 	{
 		i = 0;
-		while (current->args[i])
+		while (current_cmd->args[i])
 		{
-			expand_variables(ctx, &current->args[i]);
-			remove_quotes(current->args[i]);
+			original_arg_value = current_cmd->args[i];
+			expanded_arg_value = expand_dquote(original_arg_value);
+			safe_free(ctx, original_arg_value);
+			current_cmd->args[i] = expanded_arg_value;
+			remove_quotes(current_cmd->args[i]);
 			i++;
 		}
-		current = current->next;
+		current_cmd = current_cmd->next;
 	}
 }
 

@@ -6,13 +6,13 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 17:51:20 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/20 17:51:21 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 22:28:07 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int ft_cd(t_cmd *cmd, t_env **env)
+int ft_cd(t_cmd *cmd, t_context *ctx)
 {
 	char *path;
 	char cwd[PATH_MAX];
@@ -23,14 +23,14 @@ int ft_cd(t_cmd *cmd, t_env **env)
 	oldpwd = ft_strdup(cwd);
 	
 	if (!cmd->args[1] || ft_strcmp(cmd->args[1], "~") == 0)
-		path = get_env_value(*env, "HOME");
+		path = get_env_value(ctx->env, "HOME");
 	else if (ft_strcmp(cmd->args[1], "-") == 0)
-		path = get_env_value(*env, "OLDPWD");
+		path = get_env_value(ctx->env, "OLDPWD");
 	else
 		path = cmd->args[1];
 	
 	if (!path)
-		return (free(oldpwd), print_error("cd", NULL, "HOME not set"), 1);
+		return (free(oldpwd), print_error_msg(cmd->args[0], "HOME not set"), 1);
 	
 	if (chdir(path) != 0)
 	{
@@ -38,12 +38,12 @@ int ft_cd(t_cmd *cmd, t_env **env)
 		return (print_error("cd", path, strerror(errno)), 1);
 	}
 	
-	set_env_value(env, "OLDPWD", oldpwd);
+	set_env_value(ctx, "OLDPWD", oldpwd);
 	free(oldpwd);
 	
 	if (!getcwd(cwd, sizeof(cwd)))
 		return (print_error("cd", NULL, "getcwd failed"), 1);
-	set_env_value(env, "PWD", cwd);
+	set_env_value(ctx, "PWD", cwd);
 	
 	return (0);
 }

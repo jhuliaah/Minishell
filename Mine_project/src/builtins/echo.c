@@ -2,7 +2,7 @@
 #include <stdbool.h>
 #include <unistd.h>
 
-int ft_echo(t_cmd *cmd, t_env **env)
+int ft_echo(t_cmd *cmd, t_context *ctx)
 {
 	bool newline;
 	int i;
@@ -28,14 +28,14 @@ int ft_echo(t_cmd *cmd, t_env **env)
 	// Imprime os argumentos
 	while (cmd->args[i])
 	{
-		processed = remove_quotes(cmd->args[i]);
+		processed = expand_dquote(cmd->args[i]);
 		if (!processed)
 		{
 			write(STDERR_FILENO, "minishell: echo: memory error\n", 29);
 			return (1);
 		}
 		
-		expanded = expand_variables(processed, *env, get_exit_status());
+		expanded = expand_variable(processed, ctx->env);
 		free(processed);
 		
 		if (!expanded)

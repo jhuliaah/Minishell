@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 20:01:02 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/20 19:12:35 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 22:44:37 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,6 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-typedef struct s_redir {
-    t_token_type      type;
-    char              *file;
-    struct s_redir    *next;
-} t_redir;
-
-typedef struct s_cmd {
-    char            **args;     // Argumentos (ex: ["ls", "-l", NULL])
-    t_redir          *redirs;    // Redirecionamentos
-    struct s_cmd     *next;      // Próximo comando (para pipes)
-} t_cmd;
 
 /******************************
  *         ENVIRONMENT        *
@@ -141,6 +130,9 @@ int			main(int argc, char **argv, char **envp);
 /*env.c*/
 void		free_env_list(t_env *env_list);
 int			load_environment(t_context *ctx, char **envp);
+char	**env_to_array(t_context *ctx);
+void	set_env_value(t_context *ctx, char *key, char *value);
+
 
 /*memory.c*/
 void		*safe_malloc(t_context *ctx, size_t size);
@@ -221,6 +213,15 @@ int			add_token_node(t_token **head, t_token **tail, t_token *new_node);
 char		*safe_strdup(t_context *ctx, const char *s);
 char		*ft_strjoin_free(char *s1, char *s2);
 char		*ft_safe_strndup(t_context *ctx, const char *s, size_t size);
+
+/*yuri_utils.c*/
+void	print_error_msg(char *command, char *msg);
+void print_error(char *cmd, char *arg, char *error);
+char	*get_env_value(t_env *env, char *key);
+int get_exit_status(void);
+
+/*builtins*/
+int ft_echo(t_cmd *cmd, t_context *ctx);
 
 
 

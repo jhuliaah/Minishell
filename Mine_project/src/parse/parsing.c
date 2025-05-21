@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 17:26:05 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/20 15:40:15 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 22:31:19 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ t_cmd	*create_cmd_node(t_context *ctx)
 	cmd->args = safe_malloc(ctx, sizeof(char *));
 	cmd->args[0] = NULL;
 	cmd->redirs = NULL;
+	cmd->no_newline = false;
 	cmd->next = NULL;
 	return (cmd);
 }

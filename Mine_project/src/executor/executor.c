@@ -6,11 +6,11 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 17:29:01 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/20 17:48:00 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 22:14:30 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
 void	cleanup_redirections(t_cmd *cmd)
 {
@@ -20,22 +20,22 @@ void	cleanup_redirections(t_cmd *cmd)
 		close(cmd->out_fd);
 }
 
-int	execute_builtin(t_cmd *cmd, t_env **env)
+int	execute_builtin(t_cmd *cmd, t_context *ctx)
 {
 	if (ft_strcmp(cmd->args[0], "exit") == 0)
 		return (ft_exit(cmd));
 	else if (ft_strcmp(cmd->args[0], "echo") == 0)
-		return (ft_echo(cmd, env));
+		return (ft_echo(cmd, ctx));
 	else if (ft_strcmp(cmd->args[0], "cd") == 0)
-		return (ft_cd(cmd, env));
+		return (ft_cd(cmd, ctx));
 	else if (ft_strcmp(cmd->args[0], "pwd") == 0)
 		return (ft_pwd());
 	else if (ft_strcmp(cmd->args[0], "export") == 0)
-		return (ft_export(cmd, env));
+		return (ft_export(cmd, ctx));
 	else if (ft_strcmp(cmd->args[0], "unset") == 0)
-		return (ft_unset(cmd, env));
+		return (ft_unset(cmd, ctx));
 	else if (ft_strcmp(cmd->args[0], "env") == 0)
-		return (ft_env(*env));
+		return (ft_env(*ctx));
 	return (0);
 }
 
@@ -149,7 +149,7 @@ int	execute_command(t_cmd *cmd, t_env **env)
 			print_error(cmd->args[0], NULL, "command not found");
 			exit(127);
 		}
-
+		
 		char **env_array = env_to_array(*env);
 		execve(path, cmd->args, env_array);
 		print_error("execve", cmd->args[0], strerror(errno));

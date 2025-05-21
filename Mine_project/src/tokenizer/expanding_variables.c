@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 17:20:31 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/20 16:33:15 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 20:46:42 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,22 @@ char	*find_env_value(t_env *env, char *var)
 	return (safe_strdup(get_context(), ""));
 }
 
-char	*expand_one_variable(char *value, t_context *ctx)
+char	*expand_one_variable(char *var_name, t_context *ctx)
 {
-	char	*var;
-	char	*result;
+	char	*expanded_value;
+	char	*status_str;
 
-	if (value[0] == '$' && value[1] == ' ')
-		return (safe_strdup(ctx, "$"));
-	var = extract_var_name(value);
-	result = find_env_value(ctx->env, var);
-	free(var);
-	return (result);
+	if (var_name[0] == '?' && var_name[1] == '\0')
+	{
+		status_str = ft_itoa(ctx->exit_status);
+		if (!status_str)
+			return (safe_strdup(ctx, ""));
+		expanded_value = safe_strdup(ctx, status_str);
+		free(status_str);
+		return (expanded_value);
+	}
+	expanded_value = find_env_value(ctx->env, var_name);
+	return (expanded_value);
 }
 
 char	*expand_multi_variable(char *value, int count, int rest, t_context *ctx)

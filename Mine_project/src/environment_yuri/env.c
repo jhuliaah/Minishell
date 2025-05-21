@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 17:49:49 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/20 17:50:11 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 22:28:01 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	free_env(t_env *env)
 	}
 }
 
-char	*get_env_value(t_env *env, char *key)
+char	*get_env_value(t_context *ctx, char *key)
 {
 	t_env	*node;
 
