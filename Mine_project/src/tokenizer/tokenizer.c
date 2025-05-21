@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 14:41:46 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/20 23:45:27 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/21 14:42:25 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,13 @@ t_token	*process_next_token(char *input, int *i)
 	ctx = get_context();
 	new_node = NULL;
 	if (input[*i] == '\'')
-		new_node = handle_single_quote(input, i);
+		new_node = quote_token(input, i);
 	else if (input[*i] == '\"')
-		new_node = handle_double_quote(input, i);
+		new_node = dquote_token(input, i);
 	else if (is_special_char(input[*i]))
-		new_node = handle_special_char(input, i);
+		new_node = special_token(input, i);
 	else
-		new_node = handle_word(input, i);
+		new_node = word_token(input, i);
 	if (!new_node)
 		return (NULL);
 	return (new_node);

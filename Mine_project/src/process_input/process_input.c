@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:40:09 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/20 20:45:24 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/21 14:38:33 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,3 +118,5 @@ void	expand_ast(t_context *ctx, t_cmd *ast)
 // 		current = current->next;
 // 	}
 // }
+
+	free_ast(ctx, ast);

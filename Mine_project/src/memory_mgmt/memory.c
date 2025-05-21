@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 15:23:21 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/20 21:28:34 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/21 00:05:17 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,3 +92,4 @@ void	free_all_allocations(t_context *ctx)
 	}
 	ctx->allocations = NULL;
 }
+//CRIAR FREE CMD; FREE AST; FREE REDIR
