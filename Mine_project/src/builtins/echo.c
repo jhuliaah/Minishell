@@ -35,7 +35,7 @@ int ft_echo(t_cmd *cmd, t_context *ctx)
 			return (1);
 		}
 		
-		expanded = expand_variable(processed, ctx->env);
+		expanded = expand_variable(processed, ctx);
 		free(processed);
 		
 		if (!expanded)

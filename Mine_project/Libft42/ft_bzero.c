@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 20:54:10 by jhualves          #+#    #+#             */
-/*   Updated: 2024/11/05 17:51:19 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 22:51:08 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,3 @@ void	ft_bzero(void *s, size_t n)
 		i++;
 	}
 }
-
-// int	main(void)
-// {
-// 	char	c[25];
-
-// 	ft_bzero(c, sizeof(c));
-// 	printf("%s", c);
-// }
