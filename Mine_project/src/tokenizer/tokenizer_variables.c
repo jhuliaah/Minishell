@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 22:52:37 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/20 16:36:50 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 23:43:58 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,3 @@ int	create_single_dollar_token(t_token **head, int remainder)
 	new_node = new_token(TOKEN_VARIABLE, ft_strdup("$"));
 	return (add_token_node(head, &tail, new_node));
 }
-

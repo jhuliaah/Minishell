@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 17:52:41 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/20 17:52:54 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 22:51:48 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int ft_exit(t_cmd *cmd)
 	// Remove aspas antes de validar
 	if (contains_quotes(arg))
 	{
-		char *unquoted = remove_quotes(arg);
+		char *unquoted = expand_dquote(arg);
 		if (!is_valid_exit_number(unquoted))
 		{
 			free(unquoted);

@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 14:41:46 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/20 16:38:03 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 23:45:27 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,3 @@ t_token	*special_token(char *input, int *i)
 	handle_operator(input, i, &new_node);
 	return (new_node);
 }
-
-

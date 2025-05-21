@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 21:00:21 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/20 16:38:15 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 23:44:16 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,3 @@ char	*handle_space(char *str, int *i)
 	temp = ft_strndup(str + *i - j, j);
 	return (temp);
 }
-

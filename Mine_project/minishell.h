@@ -6,7 +6,7 @@
 /*   By: jhualves <jhualves@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 20:01:02 by jhualves          #+#    #+#             */
-/*   Updated: 2025/05/20 22:44:37 by jhualves         ###   ########.fr       */
+/*   Updated: 2025/05/20 23:42:00 by jhualves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,10 +129,26 @@ int			main(int argc, char **argv, char **envp);
 
 /*env.c*/
 void		free_env_list(t_env *env_list);
+t_env		*create_and_link_node(t_context *ctx, char *env_var_str);
 int			load_environment(t_context *ctx, char **envp);
-char	**env_to_array(t_context *ctx);
-void	set_env_value(t_context *ctx, char *key, char *value);
+t_env		*new_env_node(t_context *ctx, char *key, char *value);
+t_env		*find_env_node(t_env *env_list, char *key);
 
+/*env_utils.c*/
+char		*create_env_entry(t_context *ctx, const char *key, \
+			const char *value);
+int			cleanup_failed_entries(t_context *ctx, char **array, \
+			int last_index);
+char		**env_to_array(t_context *ctx);
+void		free_env_array(t_context *ctx, char **env_array);
+
+/*new_env.c*/
+char		*get_env_value(t_env *env_list, char *key);
+void		set_env_value(t_context *ctx, char *key, char *value);
+int			unset_env_value(t_context *ctx, char *key);
+int			count_valid_env_vars(t_env *env_list);
+int			fill_env_array(t_context *ctx, char **array, t_env *env_list, \
+			int count);
 
 /*memory.c*/
 void		*safe_malloc(t_context *ctx, size_t size);
@@ -222,6 +238,9 @@ int get_exit_status(void);
 
 /*builtins*/
 int ft_echo(t_cmd *cmd, t_context *ctx);
+int ft_export(t_cmd *cmd, t_context *ctx);
+int ft_cd(t_cmd *cmd, t_context *ctx);int ft_env(t_context *ctx);
+
 
 
 
